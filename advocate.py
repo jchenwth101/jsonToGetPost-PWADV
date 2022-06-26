@@ -3,7 +3,7 @@
 import requests
 import json
 
-headers = {"token":"eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJqb2VsLmNoZW5vd2V0aCIsImlhdCI6MTY1NjExMjgzNiwiZXhwIjoxNjU2NjQ3OTk5fQ.MBl7kniRAx5Gtv0QzpUkBh8f89vveSJjZN0Dfxyk3uBpo1t8-Wv--GpNm2OEYjQX2WGAeaZjDpOgAj1bxNNnvd4-X0xXwuwqRcS3Bwvk2zpeIx30bSwaTVE-fUFb7UYScEBfiuhaoGHOex8M-MPEd7Htu9RQEg_BkMd4cEReV7wpl8k8ge79cAMw7f5AYzP7TrfPSVPQnyl3P8ouKhtlUWuE-rMkNZQfnStdCdLigmB_-HW71sDjDevjlSeusKwtOpZvQFOL_s8H8ZHcPIeziQF1QV24ZfBT_BHvjuJID8ubo0vC567mWwcKXX9Y0FApnAyIdAku5aoRJsJPiQx2yddHpzlLt69YAe-vAAeUFtc_Du71B_KKkDejkMMsG6qgHp4o8QFBcZEek8Zb7Qk0eLrsk2nm1ttDJAtE25MI0C8iZEmvQPYkerhIwAUeOyQUEKbdRfDE3cX4Ch-LHyKUdHOGJI0_2Sy318QSQh9OeR-N5DeVykjAK4VvLP4XRs0XbsfioJeed9R0uyIMpbXgq7kqV-_2FgnbhgRX8ObTQ65Ppz8xqhxd04tNdmV7agIUUZmzHHuMHmcGInrt2kQIPkIJO1I3Ww3AO_GzJ1oBAcRAfg5ElWMKQ3q-GwTxoCcrPRm-ozvfspdRkT02qAk-3H6H4FziLFOjjk_8XiXIdLY"}
+headers = {"token":"wIjoxNjU2NjQ3+++++++++++++L***********************************2GwTxoCcrPRm-ozvfspdRkT02qAk-3H6H4FziLFOjjk_8XiXIdLY"}
 
 r = requests.get('https://pa-kobayashi-test.herokuapp.com/getProblems', headers=headers)
 # r.status_code
