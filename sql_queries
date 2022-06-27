@@ -1,0 +1,106 @@
+
+
+import requests
+import json
+
+headers = {"token":"eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJqb2VsLmNoZW5vd2V0aCIsImlhdCI6MTY1NjExMjgzNiwiZXhwIjoxNjU2NjQ3OTk5fQ.MBl7kniRAx5Gtv0QzpUkBh8f89vveSJjZN0Dfxyk3uBpo1t8-Wv--GpNm2OEYjQX2WGAeaZjDpOgAj1bxNNnvd4-X0xXwuwqRcS3Bwvk2zpeIx30bSwaTVE-fUFb7UYScEBfiuhaoGHOex8M-MPEd7Htu9RQEg_BkMd4cEReV7wpl8k8ge79cAMw7f5AYzP7TrfPSVPQnyl3P8ouKhtlUWuE-rMkNZQfnStdCdLigmB_-HW71sDjDevjlSeusKwtOpZvQFOL_s8H8ZHcPIeziQF1QV24ZfBT_BHvjuJID8ubo0vC567mWwcKXX9Y0FApnAyIdAku5aoRJsJPiQx2yddHpzlLt69YAe-vAAeUFtc_Du71B_KKkDejkMMsG6qgHp4o8QFBcZEek8Zb7Qk0eLrsk2nm1ttDJAtE25MI0C8iZEmvQPYkerhIwAUeOyQUEKbdRfDE3cX4Ch-LHyKUdHOGJI0_2Sy318QSQh9OeR-N5DeVykjAK4VvLP4XRs0XbsfioJeed9R0uyIMpbXgq7kqV-_2FgnbhgRX8ObTQ65Ppz8xqhxd04tNdmV7agIUUZmzHHuMHmcGInrt2kQIPkIJO1I3Ww3AO_GzJ1oBAcRAfg5ElWMKQ3q-GwTxoCcrPRm-ozvfspdRkT02qAk-3H6H4FziLFOjjk_8XiXIdLY"}
+
+r = requests.get('https://pa-kobayashi-test.herokuapp.com/createDatabase', headers=headers)
+print(r.text)
+
+r = requests.post('https://pa-kobayashi-test.herokuapp.com/allPets', headers=headers, json={"solution": "select * from pet"})
+print(r.text)
+
+
+r = requests.post('https://pa-kobayashi-test.herokuapp.com/dogsOnly', headers=headers, json={"solution": "select * from pet where TYPE='dog'"})
+print(r.text)
+
+
+r = requests.post('https://pa-kobayashi-test.herokuapp.com/noOwnerDogs', headers=headers, json={"solution": "select * from pet where TYPE='dog' and owner_id is NULL"})
+print(r.text)
+
+
+r = requests.post('https://pa-kobayashi-test.herokuapp.com/catsAndDogs', headers=headers, json={"solution": "select * from pet where TYPE='dog' or TYPE='cat'"})
+print(r.text)
+
+
+r = requests.post('https://pa-kobayashi-test.herokuapp.com/ownersIncludingDogs', headers=headers, json={"solution": "select b.id as owner_id, b.name as owner_name, a.id as pet_id, a.owner_id as pet_owner, a.name as pet_name, a.TYPE as pet_type, a.breed as pet_breed from owner as b LEFT JOIN pet as a ON a.owner_id = b.id AND a.TYPE='dog' ORDER BY b.id, a.id"})
+
+print(r.text)
+
+r = requests.post('https://pa-kobayashi-test.herokuapp.com/onlyOwnersWithTheirDogs', headers=headers, json={"solution": "select b.id as owner_id, b.name as owner_name, a.id as pet_id, a.owner_id as pet_owner, a.name as pet_name, a.TYPE as pet_type, a.breed as pet_breed from owner as b JOIN pet as a ON a.owner_id = b.id WHERE a.TYPE='dog' ORDER BY b.id, a.id"})
+
+print(r.text)
+
+r = requests.post('https://pa-kobayashi-test.herokuapp.com/howManyOfEach', headers=headers, json={"solution": "select MATRIX breed, count(*) from pet group by breed order by breed"})
+
+print(r.text)
+
+#
+
+
+r = requests.post('https://pa-kobayashi-test.herokuapp.com/allNames', headers=headers, json={"solution": "select a.name FROM (select DISTINCT(name) as name from owner UNION select name from pet) as a order by a.name" })
+
+print(r.text)
+
+
+
+ #/allPets  |   Submit a query to get all pets.
+# {
+# SELECT * FROM pet 
+# }
+ #/dogsOnly  |   Submit a query to get only pets that are dogs
+
+
+ #/noOwnerDogs | Submit a query to get only pets that are dogs and
+ #do not have owners
+
+
+
+# /ownersIncludingDogs | Submit a query to get all owners, and if they have dogs, include their dogs, ordered by owner_id and then by pet_id. This is the expected result table format:
+# {
+#     owner_id,
+#     owner_name,
+#     pet_id,
+#     pet_owner,
+#     pet_name,
+#     pet_type,
+#     pet_breed
+# }
+# owner_id should be the id of the owner owner_name should be the name of the owner pet_id should be the id of the pet pet_owner should be the owner id
+# pet_name should be the name of the pet
+# pet_type should be the type of the pet
+# pet_breed should be the breed of the pet
+
+
+
+
+
+
+# /onlyOwnersWithTheirDogs     |     Submit a query to get only owners with dogs, and include the dogs in the results, ordered by owner_id and then by pet_id. This is the expected result table format:
+# {
+#     owner_id,
+#     owner_name,
+#     pet_id,
+#     pet_owner,
+#     pet_name,
+#     pet_type,
+#     pet_breed
+# }
+# owner_id should be the id of the owner owner_name should be the name of the owner pet_id should be the id of the pet pet_owner should be the owner id
+# pet_name should be the name of the pet
+# pet_type should be the type of the pet
+# pet_breed should be the breed of the pet
+
+
+
+#/howManyOfEach     |      Submit a query to get all the different breeds of pets, along with their count, sorted alphabetically by breed. The expected format is a 2D array:
+# [
+# [ breed1, 10 ], 
+# [ breed2, 31 ], ...
+# ]
+
+
+
+
+# /allNames      |   Submit a query to get all names that exist in both tables, and order them in ascending order. DO NOT list duplicate owner names.
